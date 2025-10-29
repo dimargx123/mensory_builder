@@ -72,14 +72,12 @@
             font-weight: 500;
         }
         
-        .username-input-container {
-            display: flex;
-            align-items: center;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 8px 12px;
-            background: #f8f8f8;
-        }
+       <div class="username-input-container">
+    <span class="at-symbol">@</span>
+    <input type="text" class="username-input" id="usernameInput" placeholder="username">
+    <button class="clear-button" id="clearButton">×</button>
+    <button class="search-btn" id="searchButton">Search</button>
+</div>
         
         .at-symbol {
             color: #666;
@@ -95,6 +93,49 @@
             outline: none;
             color: #000;
         }
+        .clear-button {
+    position: absolute;
+    right: 70px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+    padding: 4px;
+    display: none;
+    transition: color 0.3s ease;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clear-button:hover {
+    background: #f0f0f0;
+    color: #ff0050;
+}
+
+.username-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background: #f8f8f8;
+    position: relative;
+}
+
+.username-input {
+    flex: 1;
+    border: none;
+    background: none;
+    font-size: 16px;
+    outline: none;
+    color: #000;
+    padding-right: 30px;
+}
         
         .search-btn {
             background: #ff0050;
@@ -842,6 +883,39 @@
 
     <script>
     // Elements
+    const clearButton = document.getElementById('clearButton');
+
+// Show/hide clear button based on input content
+usernameInput.addEventListener('input', () => {
+    const username = usernameInput.value.trim();
+    if (username) {
+        clearButton.style.display = 'flex';
+    } else {
+        clearButton.style.display = 'none';
+    }
+    
+    // Update username in modals
+    if (username) {
+        successUsername.textContent = `@${username}`;
+        selectedUsername.textContent = `@${username}`; 
+    } else {
+        successUsername.textContent = '@username';
+        selectedUsername.textContent = '@username'; 
+    }
+});
+
+// Clear input when clear button is clicked
+clearButton.addEventListener('click', () => {
+    usernameInput.value = '';
+    clearButton.style.display = 'none';
+    
+    // Reset username in modals
+    successUsername.textContent = '@username';
+    selectedUsername.textContent = '@username';
+    
+    // Focus back to input
+    usernameInput.focus();
+});    
     const packageOptions = document.querySelectorAll('.package-option');
     const customInput = document.getElementById('customInput');
     const customContainer = document.getElementById('customContainer');
