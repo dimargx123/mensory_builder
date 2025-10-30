@@ -100,7 +100,7 @@
         
         .clear-button {
             position: absolute;
-            right: 100px;
+            right: 70px;
             background: none;
             border: none;
             font-size: 18px;
@@ -138,6 +138,23 @@
             background: #e00046;
         }
         
+        .search-result {
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            min-height: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .search-success {
+            color: #00cc66;
+        }
+        
+        .search-error {
+            color: #ff0050;
+        }
+
         .balance {
             font-size: 18px;
             font-weight: 600;
@@ -213,28 +230,12 @@
             font-weight: 500;
         }
         
-        .custom-section {
-            margin-bottom: 25px;
-        }
-        
-        .custom-input-container {
-            border: 1.5px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 16px 12px;
-            text-align: center;
-            background: #ffffff;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .custom-input-container:focus-within {
-            border-color: #ff0050;
-            background: #fff5f8;
-        }
-        
-        .custom-input-container.selected {
-            border-color: #ff0050;
-            background: #fff5f8;
+        .custom-package {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
         }
         
         .custom-input {
@@ -692,7 +693,9 @@
                 <span class="at-symbol">@</span>
                 <input type="text" class="username-input" id="usernameInput" placeholder="username">
                 <button class="clear-button" id="clearButton">×</button>
+                <button class="search-btn" id="searchButton">Search</button>
             </div>
+            <div class="search-result" id="searchResult"></div>
         </div>
         
         <div class="recharge-title">Recharge:</div>
@@ -728,13 +731,13 @@
                 <div class="coins-count">3500</div>
                 <div class="price">$36.20</div>
             </label>
-        </div>
-        
-        <div class="custom-section">
-            <div class="custom-input-container" id="customContainer">
-                <input type="text" class="custom-input" id="customInput" placeholder="Custom">
+            
+            <!-- CUSTOM в сетке пакетов -->
+            <label class="package-option custom-package" id="customContainer">
+                <div class="coins-count">CUSTOM</div>
+                <input type="text" class="custom-input" id="customInput" placeholder="Enter amount">
                 <div class="custom-range">30-2,500,000</div>
-            </div>
+            </label>
         </div>
         
         <div class="payment-methods">
@@ -858,6 +861,7 @@
     const usernameInput = document.getElementById('usernameInput');
     const clearButton = document.getElementById('clearButton');
     const searchButton = document.getElementById('searchButton');
+    const searchResult = document.getElementById('searchResult');
     const paymentOptions = document.querySelectorAll('.payment-option');
     const orderModal = document.getElementById('orderModal');
     const paypalModal = document.getElementById('paypalModal');
@@ -904,6 +908,8 @@
     clearButton.addEventListener('click', () => {
         usernameInput.value = '';
         clearButton.style.display = 'none';
+        searchResult.textContent = '';
+        searchResult.className = 'search-result';
         
         // Reset username in modals
         successUsername.textContent = '@username';
@@ -921,21 +927,24 @@
             // Remove selected class from all options
             packageOptions.forEach(opt => {
                 opt.classList.remove('selected');
-                opt.querySelector('input[type="radio"]').checked = false;
+                if (opt.querySelector('input[type="radio"]')) {
+                    opt.querySelector('input[type="radio"]').checked = false;
+                }
             });
-            
-            // Remove custom selection
-            customContainer.classList.remove('selected');
-            customInput.value = '';
             
             // Add selected class to clicked option
             option.classList.add('selected');
-            checkbox.checked = true;
+            if (checkbox) {
+                checkbox.checked = true;
+            }
             
-            selectedPackage = {
-                coins: checkbox.value,
-                price: checkbox.getAttribute('data-price')
-            };
+            // For custom package, don't set selectedPackage immediately
+            if (option !== customContainer) {
+                selectedPackage = {
+                    coins: checkbox.value,
+                    price: checkbox.getAttribute('data-price')
+                };
+            }
             
             // Update total
             updateTotal();
@@ -947,7 +956,9 @@
         // Remove selected from package options
         packageOptions.forEach(opt => {
             opt.classList.remove('selected');
-            opt.querySelector('input[type="radio"]').checked = false;
+            if (opt.querySelector('input[type="radio"]')) {
+                opt.querySelector('input[type="radio"]').checked = false;
+            }
         });
         
         // Add selected to custom
@@ -978,15 +989,27 @@
         updateTotal();
     });
     
-    // Handle search button
+    // Handle search button with fake search
     searchButton.addEventListener('click', () => {
         const username = usernameInput.value.trim();
         if (username) {
-            // Update both modals with the entered username
-            successUsername.textContent = `@${username}`;
-            selectedUsername.textContent = `@${username}`;
+            // Show loading state
+            searchResult.textContent = 'Searching...';
+            searchResult.className = 'search-result';
+            
+            // Simulate search delay
+            setTimeout(() => {
+                // Always show "User found" for any non-empty username
+                searchResult.textContent = 'User found';
+                searchResult.className = 'search-result search-success';
+                
+                // Update both modals with the entered username
+                successUsername.textContent = `@${username}`;
+                selectedUsername.textContent = `@${username}`;
+            }, 800);
         } else {
-            alert('Please enter a username');
+            searchResult.textContent = 'Please enter a username';
+            searchResult.className = 'search-result search-error';
         }
     });
     
@@ -1115,7 +1138,9 @@
         // Reset selections
         packageOptions.forEach(opt => {
             opt.classList.remove('selected');
-            opt.querySelector('input[type="radio"]').checked = false;
+            if (opt.querySelector('input[type="radio"]')) {
+                opt.querySelector('input[type="radio"]').checked = false;
+            }
         });
         
         paymentOptions.forEach(opt => {
@@ -1123,7 +1148,6 @@
             opt.querySelector('input[type="radio"]').checked = false;
         });
         
-        customContainer.classList.remove('selected');
         customInput.value = '';
         selectedPackage = null;
         selectedPayment = null;
@@ -1144,7 +1168,9 @@
             // Reset selections
             packageOptions.forEach(opt => {
                 opt.classList.remove('selected');
-                opt.querySelector('input[type="radio"]').checked = false;
+                if (opt.querySelector('input[type="radio"]')) {
+                    opt.querySelector('input[type="radio"]').checked = false;
+                }
             });
             
             paymentOptions.forEach(opt => {
@@ -1152,7 +1178,6 @@
                 opt.querySelector('input[type="radio"]').checked = false;
             });
             
-            customContainer.classList.remove('selected');
             customInput.value = '';
             selectedPackage = null;
             selectedPayment = null;
