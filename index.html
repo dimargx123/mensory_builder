@@ -218,10 +218,19 @@
         }
         
         .coins-count {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 16px;
             font-weight: 700;
             color: #000000;
             margin-bottom: 6px;
+            gap: 6px;
+        }
+        
+        .coin-icon {
+            width: 20px;
+            height: 20px;
         }
         
         .price {
@@ -395,6 +404,150 @@
             padding: 20px;
         }
         
+        /* Custom Modal Styles */
+        .custom-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .custom-amount-section {
+            margin-bottom: 20px;
+        }
+        
+        .custom-amount-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .custom-amount-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            background: #f8f8f8;
+            margin-bottom: 20px;
+        }
+        
+        .custom-amount-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .custom-amount-arrow {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .custom-price-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .custom-price-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .keypad-button {
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .keypad-button:hover {
+            background: #f0f0f0;
+        }
+        
+        .keypad-button:active {
+            background: #e8e8e8;
+            transform: scale(0.95);
+        }
+        
+        .keypad-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .keypad-number {
+            flex: 1;
+        }
+        
+        .keypad-zero {
+            grid-column: span 2;
+        }
+        
+        .keypad-backspace {
+            background: #fff5f8;
+            color: #ff0050;
+        }
+        
+        .custom-total-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .custom-total-label {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .custom-total-amount {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .apply-button {
+            background: #ff0050;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .apply-button:hover {
+            background: #e00046;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 0, 80, 0.3);
+        }
+        
+        /* Other modal styles remain the same */
         .secure-notice {
             text-align: center;
             font-size: 14px;
@@ -704,39 +857,78 @@
         <div class="packages-grid">
             <label class="package-option">
                 <input type="radio" name="coinPackage" class="hidden-checkbox" value="30" data-price="0.31">
-                <div class="coins-count">30</div>
+                <div class="coins-count">
+                    <svg class="coin-icon" width="1em" height="1em" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="22" fill="#FFEC9B"></circle>
+                        <circle cx="24" cy="24" r="17" fill="#FACE15"></circle>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M40.9347 25.5C40.9779 25.0058 41 24.5055 41 24C41 14.6112 33.3888 7 24 7C14.6112 7 7 14.6112 7 24C7 24.5055 7.02206 25.0058 7.06527 25.5C7.82466 16.8137 15.1166 10 24 10C32.8834 10 40.1753 16.8137 40.9347 25.5Z" fill="#FABC15"></path>
+                        <path d="M33 19C30.2041 19 27.9375 16.7614 27.9375 14H24.5625V27.6111C24.5625 29.2986 23.1774 30.6667 21.4688 30.6667C19.7601 30.6667 18.375 29.2986 18.375 27.6111C18.375 25.9236 19.7601 24.5556 21.4688 24.5556C21.722 24.5556 21.9659 24.5853 22.1981 24.6406C22.2365 24.6497 22.2747 24.6596 22.3125 24.6701V21.2763C22.0358 21.2406 21.7541 21.2222 21.4688 21.2222C17.8962 21.2222 15 24.0826 15 27.6111C15 31.1396 17.8962 34 21.4688 34C25.0413 34 27.9375 31.1396 27.9375 27.6111V20.6673C29.3477 21.7134 31.1005 22.3333 33 22.3333V19Z" fill="#FEF5CD"></path>
+                    </svg>
+                    30
+                </div>
                 <div class="price">$0.31</div>
             </label>
             
             <label class="package-option">
                 <input type="radio" name="coinPackage" class="hidden-checkbox" value="350" data-price="3.65">
-                <div class="coins-count">350</div>
+                <div class="coins-count">
+                    <svg class="coin-icon" width="1em" height="1em" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="22" fill="#FFEC9B"></circle>
+                        <circle cx="24" cy="24" r="17" fill="#FACE15"></circle>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M40.9347 25.5C40.9779 25.0058 41 24.5055 41 24C41 14.6112 33.3888 7 24 7C14.6112 7 7 14.6112 7 24C7 24.5055 7.02206 25.0058 7.06527 25.5C7.82466 16.8137 15.1166 10 24 10C32.8834 10 40.1753 16.8137 40.9347 25.5Z" fill="#FABC15"></path>
+                        <path d="M33 19C30.2041 19 27.9375 16.7614 27.9375 14H24.5625V27.6111C24.5625 29.2986 23.1774 30.6667 21.4688 30.6667C19.7601 30.6667 18.375 29.2986 18.375 27.6111C18.375 25.9236 19.7601 24.5556 21.4688 24.5556C21.722 24.5556 21.9659 24.5853 22.1981 24.6406C22.2365 24.6497 22.2747 24.6596 22.3125 24.6701V21.2763C22.0358 21.2406 21.7541 21.2222 21.4688 21.2222C17.8962 21.2222 15 24.0826 15 27.6111C15 31.1396 17.8962 34 21.4688 34C25.0413 34 27.9375 31.1396 27.9375 27.6111V20.6673C29.3477 21.7134 31.1005 22.3333 33 22.3333V19Z" fill="#FEF5CD"></path>
+                    </svg>
+                    350
+                </div>
                 <div class="price">$3.65</div>
             </label>
             
             <label class="package-option">
                 <input type="radio" name="coinPackage" class="hidden-checkbox" value="700" data-price="7.25">
-                <div class="coins-count">700</div>
+                <div class="coins-count">
+                    <svg class="coin-icon" width="1em" height="1em" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="22" fill="#FFEC9B"></circle>
+                        <circle cx="24" cy="24" r="17" fill="#FACE15"></circle>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M40.9347 25.5C40.9779 25.0058 41 24.5055 41 24C41 14.6112 33.3888 7 24 7C14.6112 7 7 14.6112 7 24C7 24.5055 7.02206 25.0058 7.06527 25.5C7.82466 16.8137 15.1166 10 24 10C32.8834 10 40.1753 16.8137 40.9347 25.5Z" fill="#FABC15"></path>
+                        <path d="M33 19C30.2041 19 27.9375 16.7614 27.9375 14H24.5625V27.6111C24.5625 29.2986 23.1774 30.6667 21.4688 30.6667C19.7601 30.6667 18.375 29.2986 18.375 27.6111C18.375 25.9236 19.7601 24.5556 21.4688 24.5556C21.722 24.5556 21.9659 24.5853 22.1981 24.6406C22.2365 24.6497 22.2747 24.6596 22.3125 24.6701V21.2763C22.0358 21.2406 21.7541 21.2222 21.4688 21.2222C17.8962 21.2222 15 24.0826 15 27.6111C15 31.1396 17.8962 34 21.4688 34C25.0413 34 27.9375 31.1396 27.9375 27.6111V20.6673C29.3477 21.7134 31.1005 22.3333 33 22.3333V19Z" fill="#FEF5CD"></path>
+                    </svg>
+                    700
+                </div>
                 <div class="price">$7.25</div>
             </label>
             
             <label class="package-option">
                 <input type="radio" name="coinPackage" class="hidden-checkbox" value="1400" data-price="14.49">
-                <div class="coins-count">1400</div>
+                <div class="coins-count">
+                    <svg class="coin-icon" width="1em" height="1em" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="22" fill="#FFEC9B"></circle>
+                        <circle cx="24" cy="24" r="17" fill="#FACE15"></circle>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M40.9347 25.5C40.9779 25.0058 41 24.5055 41 24C41 14.6112 33.3888 7 24 7C14.6112 7 7 14.6112 7 24C7 24.5055 7.02206 25.0058 7.06527 25.5C7.82466 16.8137 15.1166 10 24 10C32.8834 10 40.1753 16.8137 40.9347 25.5Z" fill="#FABC15"></path>
+                        <path d="M33 19C30.2041 19 27.9375 16.7614 27.9375 14H24.5625V27.6111C24.5625 29.2986 23.1774 30.6667 21.4688 30.6667C19.7601 30.6667 18.375 29.2986 18.375 27.6111C18.375 25.9236 19.7601 24.5556 21.4688 24.5556C21.722 24.5556 21.9659 24.5853 22.1981 24.6406C22.2365 24.6497 22.2747 24.6596 22.3125 24.6701V21.2763C22.0358 21.2406 21.7541 21.2222 21.4688 21.2222C17.8962 21.2222 15 24.0826 15 27.6111C15 31.1396 17.8962 34 21.4688 34C25.0413 34 27.9375 31.1396 27.9375 27.6111V20.6673C29.3477 21.7134 31.1005 22.3333 33 22.3333V19Z" fill="#FEF5CD"></path>
+                    </svg>
+                    1400
+                </div>
                 <div class="price">$14.49</div>
             </label>
             
             <label class="package-option">
                 <input type="radio" name="coinPackage" class="hidden-checkbox" value="3500" data-price="36.20">
-                <div class="coins-count">3500</div>
+                <div class="coins-count">
+                    <svg class="coin-icon" width="1em" height="1em" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="22" fill="#FFEC9B"></circle>
+                        <circle cx="24" cy="24" r="17" fill="#FACE15"></circle>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M40.9347 25.5C40.9779 25.0058 41 24.5055 41 24C41 14.6112 33.3888 7 24 7C14.6112 7 7 14.6112 7 24C7 24.5055 7.02206 25.0058 7.06527 25.5C7.82466 16.8137 15.1166 10 24 10C32.8834 10 40.1753 16.8137 40.9347 25.5Z" fill="#FABC15"></path>
+                        <path d="M33 19C30.2041 19 27.9375 16.7614 27.9375 14H24.5625V27.6111C24.5625 29.2986 23.1774 30.6667 21.4688 30.6667C19.7601 30.6667 18.375 29.2986 18.375 27.6111C18.375 25.9236 19.7601 24.5556 21.4688 24.5556C21.722 24.5556 21.9659 24.5853 22.1981 24.6406C22.2365 24.6497 22.2747 24.6596 22.3125 24.6701V21.2763C22.0358 21.2406 21.7541 21.2222 21.4688 21.2222C17.8962 21.2222 15 24.0826 15 27.6111C15 31.1396 17.8962 34 21.4688 34C25.0413 34 27.9375 31.1396 27.9375 27.6111V20.6673C29.3477 21.7134 31.1005 22.3333 33 22.3333V19Z" fill="#FEF5CD"></path>
+                    </svg>
+                    3500
+                </div>
                 <div class="price">$36.20</div>
             </label>
             
             <!-- CUSTOM в сетке пакетов -->
-            <label class="package-option custom-package" id="customContainer">
+            <label class="package-option custom-package" id="customPackage">
                 <div class="coins-count">CUSTOM</div>
-                <input type="text" class="custom-input" id="customInput" placeholder="Enter amount">
-                <div class="custom-range">30-2,500,000</div>
+                <div class="price">Tap to enter amount</div>
             </label>
         </div>
         
@@ -754,6 +946,58 @@
         </div>
         
         <button class="recharge-button pulse" id="rechargeButton">Recharge</button>
+    </div>
+    
+    <!-- Custom Modal -->
+    <div class="modal" id="customModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Custom</div>
+                <button class="close-btn" id="closeCustomModal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="custom-amount-section">
+                    <div class="custom-amount-label">Number of Coins</div>
+                    <div class="custom-amount-display">
+                        <div class="custom-amount-value" id="customCoinAmount">5,000</div>
+                        <div class="custom-amount-arrow">▼</div>
+                    </div>
+                    
+                    <div class="custom-price-display">
+                        <svg class="coin-icon" width="1.5em" height="1.5em" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" fill="#FFEC9B"></circle>
+                            <circle cx="24" cy="24" r="17" fill="#FACE15"></circle>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M40.9347 25.5C40.9779 25.0058 41 24.5055 41 24C41 14.6112 33.3888 7 24 7C14.6112 7 7 14.6112 7 24C7 24.5055 7.02206 25.0058 7.06527 25.5C7.82466 16.8137 15.1166 10 24 10C32.8834 10 40.1753 16.8137 40.9347 25.5Z" fill="#FABC15"></path>
+                            <path d="M33 19C30.2041 19 27.9375 16.7614 27.9375 14H24.5625V27.6111C24.5625 29.2986 23.1774 30.6667 21.4688 30.6667C19.7601 30.6667 18.375 29.2986 18.375 27.6111C18.375 25.9236 19.7601 24.5556 21.4688 24.5556C21.722 24.5556 21.9659 24.5853 22.1981 24.6406C22.2365 24.6497 22.2747 24.6596 22.3125 24.6701V21.2763C22.0358 21.2406 21.7541 21.2222 21.4688 21.2222C17.8962 21.2222 15 24.0826 15 27.6111C15 31.1396 17.8962 34 21.4688 34C25.0413 34 27.9375 31.1396 27.9375 27.6111V20.6673C29.3477 21.7134 31.1005 22.3333 33 22.3333V19Z" fill="#FEF5CD"></path>
+                        </svg>
+                        <div class="custom-price-amount" id="customPriceAmount">$52</div>
+                    </div>
+                </div>
+                
+                <div class="keypad">
+                    <div class="keypad-button keypad-number" data-number="1">1</div>
+                    <div class="keypad-button keypad-number" data-number="2">2</div>
+                    <div class="keypad-button keypad-number" data-number="3">3</div>
+                    <div class="keypad-button keypad-number" data-number="4">4</div>
+                    <div class="keypad-button keypad-number" data-number="5">5</div>
+                    <div class="keypad-button keypad-number" data-number="6">6</div>
+                    <div class="keypad-button keypad-number" data-number="7">7</div>
+                    <div class="keypad-button keypad-number" data-number="8">8</div>
+                    <div class="keypad-button keypad-number" data-number="9">9</div>
+                    <div class="keypad-button keypad-number" data-number="000">000</div>
+                    <div class="keypad-button keypad-number" data-number="0">0</div>
+                    <div class="keypad-button keypad-backspace" id="backspaceButton">⌫</div>
+                </div>
+                
+                <div class="custom-total-section">
+                    <div class="custom-total-label">Total</div>
+                    <div class="custom-total-amount" id="customTotalAmount">$52</div>
+                </div>
+                
+                <button class="apply-button" id="applyCustomButton">Apply</button>
+            </div>
+        </div>
     </div>
     
     <!-- Order Summary Modal -->
@@ -856,8 +1100,7 @@
     <script>
     // Elements
     const packageOptions = document.querySelectorAll('.package-option');
-    const customInput = document.getElementById('customInput');
-    const customContainer = document.getElementById('customContainer');
+    const customPackage = document.getElementById('customPackage');
     const usernameInput = document.getElementById('usernameInput');
     const clearButton = document.getElementById('clearButton');
     const searchButton = document.getElementById('searchButton');
@@ -865,11 +1108,13 @@
     const paymentOptions = document.querySelectorAll('.payment-option');
     const orderModal = document.getElementById('orderModal');
     const paypalModal = document.getElementById('paypalModal');
+    const customModal = document.getElementById('customModal');
     const selectedUsername = document.getElementById('selectedUsername');
     const successModal = document.getElementById('successModal');
     const loadingModal = document.getElementById('loadingModal');
     const closeOrderModal = document.getElementById('closeOrderModal');
     const closePaypalModal = document.getElementById('closePaypalModal');
+    const closeCustomModal = document.getElementById('closeCustomModal');
     const rechargeButton = document.getElementById('rechargeButton');
     const payNowButton = document.getElementById('payNowButton');
     const paypalOption = document.getElementById('paypalOption');
@@ -882,8 +1127,17 @@
     const successCoins = document.getElementById('successCoins');
     const successUsername = document.getElementById('successUsername');
     
+    // Custom modal elements
+    const customCoinAmount = document.getElementById('customCoinAmount');
+    const customPriceAmount = document.getElementById('customPriceAmount');
+    const customTotalAmount = document.getElementById('customTotalAmount');
+    const keypadButtons = document.querySelectorAll('.keypad-number');
+    const backspaceButton = document.getElementById('backspaceButton');
+    const applyCustomButton = document.getElementById('applyCustomButton');
+    
     let selectedPackage = null;
     let selectedPayment = null;
+    let customCoins = 5000; // Default value
 
     // Show/hide clear button based on input content
     usernameInput.addEventListener('input', () => {
@@ -939,7 +1193,7 @@
             }
             
             // For custom package, don't set selectedPackage immediately
-            if (option !== customContainer) {
+            if (option !== customPackage) {
                 selectedPackage = {
                     coins: checkbox.value,
                     price: checkbox.getAttribute('data-price')
@@ -951,8 +1205,8 @@
         });
     });
     
-    // Handle custom input selection
-    customContainer.addEventListener('click', () => {
+    // Handle custom package click - open custom modal
+    customPackage.addEventListener('click', () => {
         // Remove selected from package options
         packageOptions.forEach(opt => {
             opt.classList.remove('selected');
@@ -962,30 +1216,103 @@
         });
         
         // Add selected to custom
-        customContainer.classList.add('selected');
-        customInput.focus();
+        customPackage.classList.add('selected');
         
-        if (customInput.value.trim() !== '') {
-            selectedPackage = {
-                coins: customInput.value,
-                price: calculateCustomPrice(customInput.value)
-            };
-        }
-        
-        updateTotal();
+        // Show custom modal
+        customModal.style.display = 'flex';
     });
     
-    // Handle custom input
-    customInput.addEventListener('input', () => {
-        if (customInput.value.trim() !== '') {
-            selectedPackage = {
-                coins: customInput.value,
-                price: calculateCustomPrice(customInput.value)
-            };
+    // Handle keypad buttons
+    keypadButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const number = button.getAttribute('data-number');
+            let currentAmount = customCoins.toString();
+            
+            if (currentAmount === '0') {
+                currentAmount = number;
+            } else {
+                currentAmount += number;
+            }
+            
+            // Limit to 7 digits to prevent overflow
+            if (currentAmount.length > 7) {
+                return;
+            }
+            
+            customCoins = parseInt(currentAmount);
+            updateCustomDisplay();
+        });
+    });
+    
+    // Handle backspace button
+    backspaceButton.addEventListener('click', () => {
+        let currentAmount = customCoins.toString();
+        
+        if (currentAmount.length > 1) {
+            currentAmount = currentAmount.slice(0, -1);
+            customCoins = parseInt(currentAmount);
         } else {
-            selectedPackage = null;
+            customCoins = 0;
         }
         
+        updateCustomDisplay();
+    });
+    
+    // Update custom display
+    function updateCustomDisplay() {
+        // Format number with commas
+        const formattedAmount = customCoins.toLocaleString();
+        customCoinAmount.textContent = formattedAmount;
+        
+        // Calculate price
+        const price = calculateCustomPrice(customCoins);
+        customPriceAmount.textContent = `$${price}`;
+        customTotalAmount.textContent = `$${price}`;
+    }
+    
+    // Calculate custom price
+    function calculateCustomPrice(coins) {
+        const coinsNum = parseInt(coins) || 0;
+        
+        // Calculate price based on coins (using the rate from the packages)
+        if (coinsNum >= 30 && coinsNum <= 2500000) {
+            // Using the rate from the first package: 30 coins = $0.31
+            return (coinsNum / 30 * 0.31).toFixed(2);
+        }
+        return "0.00";
+    }
+    
+    // Apply custom amount
+    applyCustomButton.addEventListener('click', () => {
+        if (customCoins < 30) {
+            alert('Minimum amount is 30 coins');
+            return;
+        }
+        
+        if (customCoins > 2500000) {
+            alert('Maximum amount is 2,500,000 coins');
+            return;
+        }
+        
+        selectedPackage = {
+            coins: customCoins,
+            price: calculateCustomPrice(customCoins)
+        };
+        
+        // Update custom package display
+        customPackage.querySelector('.coins-count').innerHTML = `
+            <svg class="coin-icon" width="1em" height="1em" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="22" fill="#FFEC9B"></circle>
+                <circle cx="24" cy="24" r="17" fill="#FACE15"></circle>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M40.9347 25.5C40.9779 25.0058 41 24.5055 41 24C41 14.6112 33.3888 7 24 7C14.6112 7 7 14.6112 7 24C7 24.5055 7.02206 25.0058 7.06527 25.5C7.82466 16.8137 15.1166 10 24 10C32.8834 10 40.1753 16.8137 40.9347 25.5Z" fill="#FABC15"></path>
+                <path d="M33 19C30.2041 19 27.9375 16.7614 27.9375 14H24.5625V27.6111C24.5625 29.2986 23.1774 30.6667 21.4688 30.6667C19.7601 30.6667 18.375 29.2986 18.375 27.6111C18.375 25.9236 19.7601 24.5556 21.4688 24.5556C21.722 24.5556 21.9659 24.5853 22.1981 24.6406C22.2365 24.6497 22.2747 24.6596 22.3125 24.6701V21.2763C22.0358 21.2406 21.7541 21.2222 21.4688 21.2222C17.8962 21.2222 15 24.0826 15 27.6111C15 31.1396 17.8962 34 21.4688 34C25.0413 34 27.9375 31.1396 27.9375 27.6111V20.6673C29.3477 21.7134 31.1005 22.3333 33 22.3333V19Z" fill="#FEF5CD"></path>
+            </svg>
+            ${customCoins.toLocaleString()}
+        `;
+        customPackage.querySelector('.price').textContent = `$${selectedPackage.price}`;
+        
+        // Close modal and update total
+        customModal.style.display = 'none';
         updateTotal();
     });
     
@@ -1012,19 +1339,6 @@
             searchResult.className = 'search-result search-error';
         }
     });
-    
-    // Calculate custom price
-    function calculateCustomPrice(coins) {
-        const cleanCoins = coins.replace(/,/g, '');
-        const coinsNum = parseInt(cleanCoins) || 0;
-        
-        // Calculate price based on coins (using the rate from the packages)
-        if (coinsNum >= 30 && coinsNum <= 2500000) {
-            // Using the rate from the first package: 30 coins = $0.31
-            return (coinsNum / 30 * 0.31).toFixed(2);
-        }
-        return "0.00";
-    }
     
     // Handle payment method selection
     paymentOptions.forEach(option => {
@@ -1076,9 +1390,13 @@
         orderModal.style.display = 'flex';
     });
     
-    // Close order modal
+    // Close modals
     closeOrderModal.addEventListener('click', () => {
         orderModal.style.display = 'none';
+    });
+    
+    closeCustomModal.addEventListener('click', () => {
+        customModal.style.display = 'none';
     });
     
     // Handle pay now button click
@@ -1148,7 +1466,10 @@
             opt.querySelector('input[type="radio"]').checked = false;
         });
         
-        customInput.value = '';
+        // Reset custom package
+        customPackage.querySelector('.coins-count').textContent = 'CUSTOM';
+        customPackage.querySelector('.price').textContent = 'Tap to enter amount';
+        
         selectedPackage = null;
         selectedPayment = null;
         updateTotal();
@@ -1161,6 +1482,9 @@
         }
         if (event.target === paypalModal) {
             paypalModal.style.display = 'none';
+        }
+        if (event.target === customModal) {
+            customModal.style.display = 'none';
         }
         if (event.target === successModal) {
             successModal.style.display = 'none';
@@ -1178,7 +1502,10 @@
                 opt.querySelector('input[type="radio"]').checked = false;
             });
             
-            customInput.value = '';
+            // Reset custom package
+            customPackage.querySelector('.coins-count').textContent = 'CUSTOM';
+            customPackage.querySelector('.price').textContent = 'Tap to enter amount';
+            
             selectedPackage = null;
             selectedPayment = null;
             updateTotal();
