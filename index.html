@@ -435,6 +435,31 @@
             color: #ff0050;
         }
 
+        /* User Profile Display */
+        .user-profile-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        .user-username {
+            font-weight: 600;
+            color: #000;
+        }
+
         .balance {
             font-size: 18px;
             font-weight: 600;
@@ -1151,6 +1176,104 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Payment Card Styles */
+        .card-payment-content {
+            padding: 20px;
+        }
+        
+        .card-form {
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #ff0050;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .fake-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-chip {
+            width: 40px;
+            height: 30px;
+            background: #ffcc00;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .card-number {
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-family: monospace;
+        }
+        
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .card-name {
+            font-size: 14px;
+        }
+        
+        .card-expiry {
+            font-size: 14px;
+        }
+        
+        /* Apple Pay Animation */
+        .apple-pay-animation {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .apple-pay-logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .payment-processing {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -1278,6 +1401,10 @@
                     </button>
                 </div>
                 <div class="search-result" id="searchResult"></div>
+                <div id="userProfileDisplay" class="user-profile-display" style="display: none;">
+                    <img id="userAvatar" class="user-avatar" src="" alt="User Avatar">
+                    <div id="userUsername" class="user-username"></div>
+                </div>
             </div>
             
             <div class="recharge-title">Recharge:</div>
@@ -1455,8 +1582,8 @@
                             </div>
                         </label>
                         
-                        <label class="payment-option">
-                            <input type="radio" name="paymentMethod" class="hidden-checkbox" value="card">
+                        <label class="payment-option" id="applePayOption">
+                            <input type="radio" name="paymentMethod" class="hidden-checkbox" value="applepay">
                             <div class="payment-icon"><img alt="ApplePay" loading="lazy" width="32" height="32" decoding="async" data-nimg="1" src="https://cdn-icons-png.freepik.com/512/5968/5968279.png?ga=GA1.1.1751341094.1761754748" style="color: transparent;"></div>
                             <div class="payment-text">
                                 <div>Apple Pay</div>
@@ -1473,28 +1600,80 @@
             </div>
         </div>
         
-        <!-- PayPal Payment Modal -->
-        <div class="modal" id="paypalModal">
+        <!-- Card Payment Modal -->
+        <div class="modal" id="cardPaymentModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title">Payment method</div>
-                    <button class="close-btn" id="closePaypalModal">&times;</button>
+                    <div class="modal-title">Payment</div>
+                    <button class="close-btn" id="closeCardPaymentModal">&times;</button>
                 </div>
                 
                 <div class="modal-body">
-                    <div class="paypal-content">
-                        <div class="paypal-logo"><img alt="visa Brands Color иконка" loading="lazy" width="52" height="52" decoding="async" data-nimg="1" src="https://cdn-icons-png.freepik.com/512/5968/5968299.png?ga=GA1.1.1751341094.1761754748" style="color: transparent;"></div>
-                        <div class="paypal-title">VISA</div>
-                        <div class="paypal-email">PayPal: ********@email.com</div>
+                    <div class="card-payment-content">
+                        <div class="fake-card">
+                            <div class="card-chip"></div>
+                            <div class="card-number">•••• •••• •••• 4242</div>
+                            <div class="card-details">
+                                <div class="card-name">JOHN DOE</div>
+                                <div class="card-expiry">12/25</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-form">
+                            <div class="form-group">
+                                <label class="form-label">Card Number</label>
+                                <input type="text" class="form-input" value="4242 4242 4242 4242" readonly>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-input" value="12/25" readonly>
+                                </div>
+                                <div class="form-col">
+                                    <label class="form-label">CVV</label>
+                                    <input type="text" class="form-input" value="123" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Cardholder Name</label>
+                                <input type="text" class="form-input" value="JOHN DOE" readonly>
+                            </div>
+                        </div>
                         
                         <div class="total-section">
                             <div class="total-label">Total</div>
-                            <div class="total-amount" id="paypalTotalAmount">$0.31</div>
+                            <div class="total-amount" id="cardPaymentTotalAmount">$0.31</div>
                         </div>
                         
-                        <button class="paypal-button" id="confirmPaypalButton">Buy</button>
-                        <button class="paypal-cancel" id="cancelPaypalButton">Cancel</button>
+                        <button class="paypal-button" id="confirmCardPaymentButton">Pay $0.31</button>
+                        <button class="paypal-cancel" id="cancelCardPaymentButton">Cancel</button>
                     </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Apple Pay Animation Modal -->
+        <div class="modal" id="applePayAnimationModal">
+            <div class="modal-content">
+                <div class="apple-pay-animation">
+                    <div class="apple-pay-logo">
+                        <img alt="Apple Pay" loading="lazy" width="64" height="64" decoding="async" data-nimg="1" src="https://cdn-icons-png.freepik.com/512/5968/5968279.png?ga=GA1.1.1751341094.1761754748" style="color: transparent;">
+                    </div>
+                    <div class="payment-processing">Processing with Apple Pay...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PayPal Animation Modal -->
+        <div class="modal" id="paypalAnimationModal">
+            <div class="modal-content">
+                <div class="apple-pay-animation">
+                    <div class="apple-pay-logo">
+                        <img alt="PayPal" loading="lazy" width="64" height="64" decoding="async" data-nimg="1" src="https://cdn-icons-png.freepik.com/512/888/888871.png?ga=GA1.1.1751341094.1761754748" style="color: transparent;">
+                    </div>
+                    <div class="payment-processing">Processing with PayPal...</div>
                 </div>
             </div>
         </div>
@@ -1592,9 +1771,14 @@
     const clearButton = document.getElementById('clearButton');
     const searchButton = document.getElementById('searchButton');
     const searchResult = document.getElementById('searchResult');
+    const userProfileDisplay = document.getElementById('userProfileDisplay');
+    const userAvatar = document.getElementById('userAvatar');
+    const userUsername = document.getElementById('userUsername');
     const paymentOptions = document.querySelectorAll('.payment-option');
     const orderModal = document.getElementById('orderModal');
-    const paypalModal = document.getElementById('paypalModal');
+    const cardPaymentModal = document.getElementById('cardPaymentModal');
+    const applePayAnimationModal = document.getElementById('applePayAnimationModal');
+    const paypalAnimationModal = document.getElementById('paypalAnimationModal');
     const customModal = document.getElementById('customModal');
     const selectedUsername = document.getElementById('selectedUsername');
     const successModal = document.getElementById('successModal');
@@ -1603,7 +1787,7 @@
     const transactionHistoryList = document.getElementById('transactionHistoryList');
     const viewTransactionHistory = document.getElementById('viewTransactionHistory');
     const closeOrderModal = document.getElementById('closeOrderModal');
-    const closePaypalModal = document.getElementById('closePaypalModal');
+    const closeCardPaymentModal = document.getElementById('closeCardPaymentModal');
     const closeCustomModal = document.getElementById('closeCustomModal');
     const closeTransactionHistoryModal = document.getElementById('closeTransactionHistoryModal');
     const rechargeButton = document.getElementById('rechargeButton');
@@ -1611,10 +1795,12 @@
     const backButton = document.getElementById('backButton');
     const totalAmount = document.getElementById('totalAmount');
     const selectedCoins = document.getElementById('selectedCoins');
-    const paypalTotalAmount = document.getElementById('paypalTotalAmount');
+    const cardPaymentTotalAmount = document.getElementById('cardPaymentTotalAmount');
     const successCoins = document.getElementById('successCoins');
     const successUsername = document.getElementById('successUsername');
     const uploadButton = document.getElementById('uploadButton');
+    const confirmCardPaymentButton = document.getElementById('confirmCardPaymentButton');
+    const cancelCardPaymentButton = document.getElementById('cancelCardPaymentButton');
     
     // Custom modal elements
     const customCoinAmount = document.getElementById('customCoinAmount');
@@ -1628,6 +1814,21 @@
     let selectedPayment = null;
     let customCoins = 5000; // Default value
     let transactionHistory = JSON.parse(localStorage.getItem('tiktokTransactionHistory')) || [];
+    let currentSearchedUser = null;
+
+    // Fake TikTok users database
+    const fakeTikTokUsers = [
+        { username: "charlidamelio", avatar: "https://i.ibb.co/0QyL0y1/charlie.jpg", displayName: "Charli D'Amelio" },
+        { username: "addisonre", avatar: "https://i.ibb.co/7y4W4n7/addison.jpg", displayName: "Addison Rae" },
+        { username: "bellapoarch", avatar: "https://i.ibb.co/0j6p4n6/bella.jpg", displayName: "Bella Poarch" },
+        { username: "khaby.lame", avatar: "https://i.ibb.co/0QyL0y1/khaby.jpg", displayName: "Khaby Lame" },
+        { username: "zachking", avatar: "https://i.ibb.co/7y4W4n7/zach.jpg", displayName: "Zach King" },
+        { username: "justmaiko", avatar: "https://i.ibb.co/0j6p4n6/maiko.jpg", displayName: "Just Maiko" },
+        { username: "therock", avatar: "https://i.ibb.co/0QyL0y1/rock.jpg", displayName: "Dwayne Johnson" },
+        { username: "willsmith", avatar: "https://i.ibb.co/7y4W4n7/will.jpg", displayName: "Will Smith" },
+        { username: "kimkardashian", avatar: "https://i.ibb.co/0j6p4n6/kim.jpg", displayName: "Kim Kardashian" },
+        { username: "kyliejenner", avatar: "https://i.ibb.co/0QyL0y1/kylie.jpg", displayName: "Kylie Jenner" }
+    ];
 
     // Initialize transaction history display
     function updateTransactionHistoryDisplay() {
@@ -1705,6 +1906,8 @@
         clearButton.style.display = 'none';
         searchResult.textContent = '';
         searchResult.className = 'search-result';
+        userProfileDisplay.style.display = 'none';
+        currentSearchedUser = null;
         
         // Reset username in modals
         successUsername.textContent = '@username';
@@ -1857,23 +2060,45 @@
         updateTotal();
     });
     
-    // Handle search button with fake search
+    // Handle search button with fake TikTok user search
     searchButton.addEventListener('click', () => {
-        const username = usernameInput.value.trim();
+        const username = usernameInput.value.trim().toLowerCase();
         if (username) {
             // Show loading state
             searchResult.textContent = 'Searching...';
             searchResult.className = 'search-result';
+            userProfileDisplay.style.display = 'none';
             
             // Simulate search delay
             setTimeout(() => {
-                // Always show "User found" for any non-empty username
-                searchResult.textContent = 'User found';
-                searchResult.className = 'search-result search-success';
+                // Search for user in fake database
+                const foundUser = fakeTikTokUsers.find(user => 
+                    user.username.toLowerCase() === username
+                );
                 
-                // Update both modals with the entered username
-                successUsername.textContent = `@${username}`;
-                selectedUsername.textContent = `@${username}`;
+                if (foundUser) {
+                    searchResult.textContent = 'User found';
+                    searchResult.className = 'search-result search-success';
+                    
+                    // Display user profile
+                    userAvatar.src = foundUser.avatar;
+                    userUsername.textContent = `@${foundUser.username}`;
+                    userProfileDisplay.style.display = 'flex';
+                    
+                    currentSearchedUser = foundUser;
+                    
+                    // Update both modals with the found username
+                    successUsername.textContent = `@${foundUser.username}`;
+                    selectedUsername.textContent = `@${foundUser.username}`;
+                } else {
+                    searchResult.textContent = 'User not found';
+                    searchResult.className = 'search-result search-error';
+                    currentSearchedUser = null;
+                    
+                    // Update modals with entered username
+                    successUsername.textContent = `@${username}`;
+                    selectedUsername.textContent = `@${username}`;
+                }
             }, 800);
         } else {
             searchResult.textContent = 'Please enter a username';
@@ -1923,9 +2148,15 @@
         
         // Update order modal content
         selectedCoins.textContent = parseInt(selectedPackage.coins).toLocaleString() + ' Coins';
-        selectedUsername.textContent = `@${username}`;
-        // Update success modal with current username
-        successUsername.textContent = `@${username}`;
+        
+        // Use found user's username or the entered one
+        if (currentSearchedUser) {
+            selectedUsername.textContent = `@${currentSearchedUser.username}`;
+            successUsername.textContent = `@${currentSearchedUser.username}`;
+        } else {
+            selectedUsername.textContent = `@${username}`;
+            successUsername.textContent = `@${username}`;
+        }
         
         // Show modal with animation
         orderModal.style.display = 'flex';
@@ -1938,6 +2169,10 @@
     
     closeCustomModal.addEventListener('click', () => {
         customModal.style.display = 'none';
+    });
+    
+    closeCardPaymentModal.addEventListener('click', () => {
+        cardPaymentModal.style.display = 'none';
     });
     
     closeTransactionHistoryModal.addEventListener('click', () => {
@@ -1959,13 +2194,52 @@
         }
         
         if (selectedPayment === 'paypal') {
-            // Show PayPal modal instead of processing payment directly
+            // Show card payment modal for PayPal
             orderModal.style.display = 'none';
-            paypalModal.style.display = 'flex';
-            paypalTotalAmount.textContent = `$${selectedPackage.price}`;
-        } else {
-            // For other payment methods, process directly
+            cardPaymentModal.style.display = 'flex';
+            cardPaymentTotalAmount.textContent = `$${selectedPackage.price}`;
+        } else if (selectedPayment === 'applepay') {
+            // Show Apple Pay animation
             orderModal.style.display = 'none';
+            applePayAnimationModal.style.display = 'flex';
+            
+            // Simulate Apple Pay processing
+            setTimeout(() => {
+                applePayAnimationModal.style.display = 'none';
+                loadingModal.style.display = 'flex';
+                
+                // Simulate payment processing for 3 seconds
+                setTimeout(() => {
+                    loadingModal.style.display = 'none';
+                    
+                    // Show success modal after loading
+                    successModal.style.display = 'flex';
+                    
+                    // Update success modal
+                    successCoins.textContent = parseInt(selectedPackage.coins).toLocaleString() + ' Coins';
+                    
+                    // Save transaction to history and update balance
+                    const username = currentSearchedUser ? currentSearchedUser.username : usernameInput.value.trim();
+                    if (username) {
+                        saveTransaction(username, selectedPackage.coins);
+                        // Subtract coins from balance
+                        currentBalance -= parseInt(selectedPackage.coins);
+                        updateBalanceDisplay();
+                    }
+                }, 3000);
+            }, 2000);
+        }
+    });
+    
+    // Handle card payment confirmation
+    confirmCardPaymentButton.addEventListener('click', () => {
+        // Show PayPal animation
+        cardPaymentModal.style.display = 'none';
+        paypalAnimationModal.style.display = 'flex';
+        
+        // Simulate PayPal processing
+        setTimeout(() => {
+            paypalAnimationModal.style.display = 'none';
             loadingModal.style.display = 'flex';
             
             // Simulate payment processing for 3 seconds
@@ -1979,7 +2253,7 @@
                 successCoins.textContent = parseInt(selectedPackage.coins).toLocaleString() + ' Coins';
                 
                 // Save transaction to history and update balance
-                const username = usernameInput.value.trim();
+                const username = currentSearchedUser ? currentSearchedUser.username : usernameInput.value.trim();
                 if (username) {
                     saveTransaction(username, selectedPackage.coins);
                     // Subtract coins from balance
@@ -1987,43 +2261,12 @@
                     updateBalanceDisplay();
                 }
             }, 3000);
-        }
+        }, 2000);
     });
     
-    // Handle PayPal confirmation
-    confirmPaypalButton.addEventListener('click', () => {
-        // Show loading modal
-        paypalModal.style.display = 'none';
-        loadingModal.style.display = 'flex';
-        
-        // Simulate payment processing for 3 seconds
-        setTimeout(() => {
-            loadingModal.style.display = 'none';
-            
-            // Show success modal after loading
-            successModal.style.display = 'flex';
-            
-            // Update success modal
-            successCoins.textContent = parseInt(selectedPackage.coins).toLocaleString() + ' Coins';
-            
-            // Save transaction to history and update balance
-            const username = usernameInput.value.trim();
-            if (username) {
-                saveTransaction(username, selectedPackage.coins);
-                // Subtract coins from balance
-                currentBalance -= parseInt(selectedPackage.coins);
-                updateBalanceDisplay();
-            }
-        }, 3000);
-    });
-    
-    // Close PayPal modal
-    closePaypalModal.addEventListener('click', () => {
-        paypalModal.style.display = 'none';
-    });
-    
-    cancelPaypalButton.addEventListener('click', () => {
-        paypalModal.style.display = 'none';
+    // Close card payment modal
+    cancelCardPaymentButton.addEventListener('click', () => {
+        cardPaymentModal.style.display = 'none';
     });
     
     // Handle back button click
@@ -2065,8 +2308,8 @@
         if (event.target === orderModal) {
             orderModal.style.display = 'none';
         }
-        if (event.target === paypalModal) {
-            paypalModal.style.display = 'none';
+        if (event.target === cardPaymentModal) {
+            cardPaymentModal.style.display = 'none';
         }
         if (event.target === customModal) {
             customModal.style.display = 'none';
@@ -2100,6 +2343,12 @@
         }
         if (event.target === transactionHistoryModal) {
             transactionHistoryModal.style.display = 'none';
+        }
+        if (event.target === applePayAnimationModal) {
+            applePayAnimationModal.style.display = 'none';
+        }
+        if (event.target === paypalAnimationModal) {
+            paypalAnimationModal.style.display = 'none';
         }
     });
 
