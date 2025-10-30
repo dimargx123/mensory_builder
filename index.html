@@ -122,20 +122,28 @@
             color: #ff0050;
         }
         
-        .search-btn {
+        .search-icon-btn {
             background: #ff0050;
-            color: white;
             border: none;
             border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 14px;
+            padding: 8px;
             cursor: pointer;
             margin-left: 8px;
             transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
         }
         
-        .search-btn:hover {
+        .search-icon-btn:hover {
             background: #e00046;
+        }
+        
+        .search-icon-img {
+            width: 23px;
+            height: 22px;
         }
         
         .search-result {
@@ -846,7 +854,9 @@
                 <span class="at-symbol">@</span>
                 <input type="text" class="username-input" id="usernameInput" placeholder="username">
                 <button class="clear-button" id="clearButton">×</button>
-                <button class="search-btn" id="searchButton">Search</button>
+                <button class="search-icon-btn" id="searchButton">
+                    <img alt="Находить Generic Detailed Outline иконка" loading="lazy" width="23" height="22" decoding="async" data-nimg="1" src="https://cdn-icons-png.freepik.com/512/7689/7689114.png?ga=GA1.1.1751341094.1761754748" style="color: transparent;" class="search-icon-img">
+                </button>
             </div>
             <div class="search-result" id="searchResult"></div>
         </div>
