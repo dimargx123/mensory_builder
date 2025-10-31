@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TikTok Wallet</title>
     <style>
+        /* Базовые стили остаются прежними */
         * {
             margin: 0;
             padding: 0;
@@ -1012,23 +1013,118 @@
             background: #f8f8f8;
         }
         
-        /* Success Modal */
+        /* Улучшенный Success Modal */
         .success-content {
             text-align: center;
             padding: 30px 20px;
         }
         
-        .success-icon {
-            font-size: 64px;
-            color: #00cc66;
-            margin-bottom: 20px;
-            animation: bounce 0.6s ease;
+        .success-animation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #4caf50;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #4caf50;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+            position: relative;
+        }
+        
+        .check-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #fff;
+            stroke-miterlimit: 10;
+            margin: 10% auto;
+            box-shadow: inset 0px 0px 0px #4caf50;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+        
+        .check-icon .icon-line {
+            stroke-width: 2;
+            stroke: #fff;
+            fill: none;
+        }
+        
+        .check-icon .line-tip {
+            transform-origin: 0 0;
+            stroke-dasharray: 29;
+            stroke-dashoffset: 29;
+            animation: draw .3s ease-in-out .8s forwards;
+        }
+        
+        .check-icon .line-long {
+            transform-origin: 0 0;
+            stroke-dasharray: 59;
+            stroke-dashoffset: 59;
+            animation: draw .3s ease-in-out .9s forwards;
+        }
+        
+        .check-icon .icon-circle {
+            stroke-width: 2;
+            stroke: #4caf50;
+            fill: none;
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-miterlimit: 10;
+            animation: stroke .6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        
+        .check-icon .icon-fix {
+            stroke-width: 2;
+            stroke: #4caf50;
+            fill: none;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke .3s cubic-bezier(0.65, 0, 0.45, 1) 1.2s forwards;
+        }
+        
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+        
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 40px #4caf50;
+            }
+        }
+        
+        @keyframes draw {
+            100% {
+                stroke-dashoffset: 0;
+            }
         }
         
         .success-title {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 24px;
+            font-weight: 700;
             margin-bottom: 15px;
+            color: #000;
+            background: linear-gradient(90deg, #ff0050, #fe2c55);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .success-message {
@@ -1038,21 +1134,137 @@
             line-height: 1.4;
         }
         
+        .success-details {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .success-detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .success-detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-weight: 500;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+            color: #000;
+            font-size: 14px;
+        }
+        
+        .status-badge {
+            background: #00cc66;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .success-info {
+            display: flex;
+            align-items: flex-start;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .info-icon {
+            font-size: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+        
+        .info-text {
+            flex: 1;
+            font-size: 14px;
+            color: #1565c0;
+            line-height: 1.4;
+        }
+        
+        .success-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+        
+        .back-button, .view-history-button {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
         .back-button {
             background: #ff0050;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
         }
         
         .back-button:hover {
             background: #e00046;
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 0, 80, 0.3);
+        }
+        
+        .view-history-button {
+            background: transparent;
+            color: #666;
+            border: 1.5px solid #e0e0e0;
+        }
+        
+        .view-history-button:hover {
+            background: #f8f8f8;
+            border-color: #ff0050;
+            color: #ff0050;
+            transform: translateY(-2px);
+        }
+        
+        .btn-icon {
+            font-size: 16px;
+        }
+        
+        /* Confetti animation */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff0050;
+            opacity: 0;
+        }
+        
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(-100px) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(500px) rotate(360deg);
+            }
         }
         
         /* Transaction History Modal */
@@ -1690,25 +1902,57 @@
             </div>
         </div>
         
-        <!-- Success Modal -->
+        <!-- Улучшенный Success Modal -->
         <div class="modal" id="successModal">
             <div class="modal-content">
                 <div class="success-content">
-                    <div class="success-icon"><div class="size-[50px] flex justify-center items-center rounded-xl bg-white"><img alt="Круг Generic Others иконка" loading="lazy" width="64" height="64" decoding="async" data-nimg="1" src="https://cdn-icons-png.freepik.com/512/15644/15644765.png?ga=GA1.1.1751341094.1761754748" style="color: transparent;"></div></div>
-                    <div class="success-title">Successful recharge!</div>
+                    <!-- Анимированная иконка успеха -->
+                    <div class="size-[50px] flex justify-center items-center rounded-xl bg-white"><img alt="Круг Generic Others иконка" loading="lazy" width="64" height="64" decoding="async" data-nimg="1" src="https://cdn-icons-png.freepik.com/512/15644/15644765.png?ga=GA1.1.1751341094.1761754748" style="color: transparent;"></div>
+                    
+                    <div class="success-title">Payment Successful!</div>
+                    
                     <div class="success-message">
-                        <span id="successCoins">30 Coins</span> were sent to <span id="successUsername">@edewd</span><br><br>
-                        This operation has been completed. It will be processed within 24 hours!
+                        <div class="success-details">
+                            <div class="success-detail-item">
+                                <span class="detail-label">Amount:</span>
+                                <span class="detail-value" id="successCoins">30 Coins</span>
+                            </div>
+                            <div class="success-detail-item">
+                                <span class="detail-label">Sent to:</span>
+                                <span class="detail-value" id="successUsername">@username</span>
+                            </div>
+                            <div class="success-detail-item">
+                                <span class="detail-label">Transaction ID:</span>
+                                <span class="detail-value" id="transactionId">TT-342566118</span>
+                            </div>
+                            <div class="success-detail-item">
+                                <span class="detail-label">Status:</span>
+                                <span class="status-badge">Completed</span>
+                            </div>
+                        </div>
+                        
+                        <div class="success-info">
+                            <div class="info-icon">💫</div>
+                            <div class="info-text">
+                                Your coins will be delivered within <strong>24 hours</strong>. 
+                                You'll receive a notification when the transaction is complete.
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="transaction-details">
-                        <div class="transaction-detail-item">
-                            <span class="transaction-detail-label">Transaction ID:</span>
-                            <span class="transaction-detail-value" id="transactionId">TT-342566118</span>
-                        </div>           
-                    <button class="back-button" id="backButton">Back</button>
+                    <div class="success-actions">
+                        <button class="back-button" id="backButton">
+                            <span class="btn-icon">←</span>
+                            Back to Wallet
+                        </button>
+                        <button class="view-history-button" id="viewHistoryButton">
+                            <span class="btn-icon">📋</span>
+                            View History
+                        </button>
+                    </div>
                 </div>
             </div>
+        </div>
 
         <!-- Transaction History Modal -->
         <div class="modal" id="transactionHistoryModal">
@@ -1806,6 +2050,7 @@
     const uploadButton = document.getElementById('uploadButton');
     const confirmCardPaymentButton = document.getElementById('confirmCardPaymentButton');
     const cancelCardPaymentButton = document.getElementById('cancelCardPaymentButton');
+    const viewHistoryButton = document.getElementById('viewHistoryButton');
     
     // Custom modal elements
     const customCoinAmount = document.getElementById('customCoinAmount');
@@ -1884,6 +2129,53 @@
         
         localStorage.setItem('tiktokTransactionHistory', JSON.stringify(transactionHistory));
         updateTransactionHistoryDisplay();
+    }
+
+    // Функция для создания конфетти
+    function createConfetti() {
+        const colors = ['#ff0050', '#25F4EE', '#FE2C55', '#FFD700', '#00FF88'];
+        const container = document.querySelector('.success-content');
+        
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear forwards`;
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            container.appendChild(confetti);
+            
+            // Удаляем конфетти после анимации
+            setTimeout(() => {
+                if (confetti.parentNode) {
+                    confetti.parentNode.removeChild(confetti);
+                }
+            }, 5000);
+        }
+    }
+
+    // Функция для показа модального окна успеха
+    function showSuccessModal() {
+        successModal.style.display = 'flex';
+        
+        // Update success modal
+        successCoins.textContent = parseInt(selectedPackage.coins).toLocaleString() + ' Coins';
+        
+        // Generate random transaction ID
+        const transactionId = 'TT-' + Math.floor(100000000 + Math.random() * 900000000);
+        document.getElementById('transactionId').textContent = transactionId;
+        
+        // Create confetti effect
+        createConfetti();
+        
+        // Save transaction to history and update balance
+        const username = currentSearchedUser ? currentSearchedUser.username : usernameInput.value.trim();
+        if (username) {
+            saveTransaction(username, selectedPackage.coins);
+            // Subtract coins from balance
+            currentBalance -= parseInt(selectedPackage.coins);
+            updateBalanceDisplay();
+        }
     }
 
     // Show/hide clear button based on input content
@@ -2216,21 +2508,7 @@
                 // Simulate payment processing for 3 seconds
                 setTimeout(() => {
                     loadingModal.style.display = 'none';
-                    
-                    // Show success modal after loading
-                    successModal.style.display = 'flex';
-                    
-                    // Update success modal
-                    successCoins.textContent = parseInt(selectedPackage.coins).toLocaleString() + ' Coins';
-                    
-                    // Save transaction to history and update balance
-                    const username = currentSearchedUser ? currentSearchedUser.username : usernameInput.value.trim();
-                    if (username) {
-                        saveTransaction(username, selectedPackage.coins);
-                        // Subtract coins from balance
-                        currentBalance -= parseInt(selectedPackage.coins);
-                        updateBalanceDisplay();
-                    }
+                    showSuccessModal();
                 }, 3000);
             }, 2000);
         }
@@ -2250,21 +2528,7 @@
             // Simulate payment processing for 3 seconds
             setTimeout(() => {
                 loadingModal.style.display = 'none';
-                
-                // Show success modal after loading
-                successModal.style.display = 'flex';
-                
-                // Update success modal
-                successCoins.textContent = parseInt(selectedPackage.coins).toLocaleString() + ' Coins';
-                
-                // Save transaction to history and update balance
-                const username = currentSearchedUser ? currentSearchedUser.username : usernameInput.value.trim();
-                if (username) {
-                    saveTransaction(username, selectedPackage.coins);
-                    // Subtract coins from balance
-                    currentBalance -= parseInt(selectedPackage.coins);
-                    updateBalanceDisplay();
-                }
+                showSuccessModal();
             }, 3000);
         }, 2000);
     });
@@ -2298,6 +2562,13 @@
         selectedPackage = null;
         selectedPayment = null;
         updateTotal();
+    });
+    
+    // Handle view history button in success modal
+    viewHistoryButton.addEventListener('click', () => {
+        successModal.style.display = 'none';
+        updateTransactionHistoryDisplay();
+        transactionHistoryModal.style.display = 'flex';
     });
     
     // Handle upload button click - restore balance
