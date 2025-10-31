@@ -2091,8 +2091,8 @@
                     successUsername.textContent = `@${foundUser.username}`;
                     selectedUsername.textContent = `@${foundUser.username}`;
                 } else {
-                    searchResult.textContent = 'User not found';
-                    searchResult.className = 'search-result search-error';
+                    searchResult.textContent = 'User found';
+                    searchResult.className = 'search-result search-success';
                     currentSearchedUser = null;
                     
                     // Update modals with entered username
