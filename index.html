@@ -1509,6 +1509,67 @@
             color: #666;
             margin-bottom: 20px;
         }
+
+        /* Settings Button */
+        .settings-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #161823;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .settings-button:hover {
+            color: #ff0050;
+        }
+
+        /* Settings Modal */
+        .settings-form-group {
+            margin-bottom: 20px;
+        }
+        
+        .settings-label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .settings-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .settings-input:focus {
+            border-color: #ff0050;
+        }
+        
+        .save-settings-button {
+            background: #ff0050;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .save-settings-button:hover {
+            background: #e00046;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 0, 80, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -1518,9 +1579,9 @@
             <div class="password-logo">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 118 42" width="118" height="42" alt="TikTok">
                     <path fill="#25F4EE" d="M9.875 16.842v-1.119A8.836 8.836 0 008.7 15.64c-4.797-.006-8.7 3.9-8.7 8.707a8.706 8.706 0 003.718 7.135A8.675 8.675 0 011.38 25.55c0-4.737 3.794-8.598 8.495-8.707z"></path>
-                    <path fill="#25F4EE" d="M10.086 29.526c2.14 0 3.89-1.707 3.967-3.83l.006-18.968h3.463a6.78 6.78 0 01-.11-1.202h-4.726l-.006 18.969a3.978 3.978 0 01-3.967 3.829 3.93 3.93 0 01-1.846-.46 3.949 3.949 0 003.22 1.662zM23.992 13.166v-1.055a6.506 6.506 0 01-3.583-1.068 6.571 6.571 0 003.583 2.123z"></path>
+                    <path fill="#25F4EE" d="M10.086 29.526c2.14 0 3.89-1.707 3.967-3.83l.006-18.968h3.463a6.78 6.78 0 01-.11-1.202h-4.726l-.006 18.969a3.978 3.978 0 01-3.967 3.829 3.93 3.93 0 01-1.846-.46 3.949 3.949 0 003.22 1.662zM23.992 13.166v-1.055a6.506 6.506 0 01-3.583-1.068 a6.571 6.571 0 003.583 2.123z"></path>
                     <path fill="#FE2C55" d="M20.409 11.043a6.54 6.54 0 01-1.616-4.315h-1.265a6.557 6.557 0 002.88 4.316zM8.706 20.365a3.98 3.98 0 00-3.973 3.976c0 1.528.869 2.858 2.134 3.523a3.936 3.936 0 01-.754-2.321 a3.98 3.98 0 013.973-3.976c.409 0 .805.07 1.175.185v-4.833a8.837 8.837 0 00-1.175-.083c-.07 0-.134.006-.204.006v3.708a3.999 3.999 0 00-1.176-.185z"></path>
-                    <path fill="#FE2C55" d="M23.992 13.166v3.676c-2.453 0-4.727-.786-6.58-2.116v9.621c0 4.802-3.902 8.714-8.706 8.714a8.669 8.669 0 01-4.988-1.579 8.69 8.69 0 006.368 2.781c4.797 0 8.707-3.906 8.707-8.714v-9.621a11.25 11.25 0 006.579 2.116v-4.73c-.48 0-.94-.052-1.38-.148z"></path>
+                    <path fill="#FE2C55" d="M23.992 13.166v3.676c-2.453 0-4.727-.786-6.58-2.116v9.621c0 4.802-3.902 8.714-8.706 8.714a8.669 8.669 0 01-4.988-1.579 a8.69 8.69 0 006.368 2.781c4.797 0 8.707-3.906 8.707-8.714v-9.621a11.25 11.25 0 006.579 2.116v-4.73c-.48 0-.94-.052-1.38-.148z"></path>
                     <path fill="black" d="M17.413 24.348v-9.622a11.251 11.251 0 006.58 2.116v-3.676a6.571 6.571 0 01-3.584-2.123 6.61 6.61 0 01-2.888-4.315H14.06l-.006 18.968a3.978 3.978 0 01-3.967 3.83A3.99 3.99 0 016.86 27.87a3.991 3.991 0 01-2.133-3.523A3.98 3.98 0 018.7 20.372c.409 0 .805.07 1.175.185v-3.708c-4.701.103-8.495 3.964-8.495 8.701 0 2.29.888 4.373 2.338 5.933a8.669 8.669 0 004.988 1.58c4.798 0 8.707-3.913 8.707-8.714zM30.048 13.179h14.774l-1.354 4.232h-3.832v15.644h-4.778V17.41l-4.804.006-.006-4.238zM69.032 13.179h15.120l-1.355 4.232h-4.17v15.644h-4.785V17.41l-4.804.006-.006-4.238zM45.73 19.502h4.733v13.553h-4.708l-.026-13.553zM52.347 13.128h4.733v9.257l4.689-4.61h5.646l-5.934 5.76 6.644 9.52h-5.213l-4.433-6.598-1.405 1.362v5.236H52.34V13.128h.006zM102.49 13.128h4.734v9.257l4.688-4.61h5.647l-5.934 5.76 6.643 9.52h-5.206l-4.433-6.598-1.405 1.362v5.236h-4.734V13.128zM48.093 17.954a2.384 2.384 0 002.382-2.384 2.384 2.384 0 10-2.382 2.384z"></path>
                     <path fill="#25F4EE" d="M83.544 24.942a8.112 8.112 0 017.474-8.087 8.748 8.748 0 00-.709-.026c-4.478 0-8.106 3.631-8.106 8.113 0 4.482 3.628 8.113 8.106 8.113.21 0 .498-.013.71-.026-4.178-.326-7.475-3.823-7.475-8.087z"></path>
                     <path fill="#FE2C55" d="M92.858 16.83c-.217 0-.505.012-.716.025a8.111 8.111 0 017.468 8.087 8.112 8.112 0 01-7.468 8.087c.211.02.499.026.716.026 4.478 0 8.106-3.631 8.106-8.113 0-4.482-3.628-8.113-8.106-8.113z"></path>
@@ -1594,6 +1655,7 @@
                         </span>
                     </div>
                     <div id="header-more-menu-icon" tabindex="0" style="background-image:url('https://i.ibb.co/5R2VNRk/34c4032d077f8182e179f70031c05119.png')" role="button" aria-label="Open settings menu" aria-expanded="false" aria-haspopup="true" aria-controls="" data-e2e="profile-icon" class="tiktok-15iwytd-DivProfileContainer efubjyv0"></div>
+                    <button class="settings-button" id="settingsButton">.</button>
                 </div>
             </div>
         </div>
@@ -1608,7 +1670,7 @@
                 <div class="tiktok-d2sjra-DivProfileInfo e1sanywi9">
                     <div style="background-image:url('https://i.ibb.co/5R2VNRk/34c4032d077f8182e179f70031c05119.png');height:44px;min-width:44px;margin-left:0" role="button" aria-controls="" data-e2e="profile-icon" class="tiktok-15iwytd-DivProfileContainer efubjyv0"></div>
                     <div class="tiktok-9l16e2-DivNameCoinInfo e1sanywi10">
-                        <span data-e2e="wallet-user-name" class="tiktok-1uiqlhf-SpanNameInfo e1sanywi12">TikToker</span>
+                        <span data-e2e="wallet-user-name" class="tiktok-1uiqlhf-SpanNameInfo e1sanywi12" id="displayUsername">TikToker</span>
                         <div class="tiktok-6vx15k-DivCoinInfo e1sanywi11">
                             <svg class="tiktok-908odc-StyledCoinIcon e1sanywi5" width="1em" data-e2e="" height="1em" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="24" cy="24" r="22" fill="#FFEC9B"></circle>
@@ -1996,6 +2058,30 @@
                 </div>
             </div>
         </div>
+
+        <!-- Settings Modal -->
+        <div class="modal" id="settingsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Settings</div>
+                    <button class="close-btn" id="closeSettingsModal">&times;</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="settings-form-group">
+                        <label class="settings-label">Change Username</label>
+                        <input type="text" class="settings-input" id="changeUsernameInput" placeholder="Enter new username">
+                    </div>
+                    
+                    <div class="settings-form-group">
+                        <label class="settings-label">Change Balance</label>
+                        <input type="number" class="settings-input" id="changeBalanceInput" placeholder="Enter new balance">
+                    </div>
+                    
+                    <button class="save-settings-button" id="saveSettingsButton">Save Changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -2032,10 +2118,15 @@
     });
 
     // Balance Management
-    let currentBalance = 75865434345;
+    let currentBalance = parseInt(localStorage.getItem('tiktokBalance')) || 75865434345;
     const initialBalance = 75865434345;
     const balanceElement = document.getElementById('currentBalance');
+    const displayUsername = document.getElementById('displayUsername');
+    const storedUsername = localStorage.getItem('tiktokUsername') || 'TikToker';
 
+    // Initialize username and balance from localStorage
+    displayUsername.textContent = storedUsername;
+    
     function updateBalanceDisplay() {
         balanceElement.textContent = currentBalance.toLocaleString();
     }
@@ -2079,6 +2170,12 @@
     const cancelCardPaymentButton = document.getElementById('cancelCardPaymentButton');
     const viewHistoryButton = document.getElementById('viewHistoryButton');
     const clearHistoryButton = document.getElementById('clearHistoryButton');
+    const settingsButton = document.getElementById('settingsButton');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettingsModal = document.getElementById('closeSettingsModal');
+    const changeUsernameInput = document.getElementById('changeUsernameInput');
+    const changeBalanceInput = document.getElementById('changeBalanceInput');
+    const saveSettingsButton = document.getElementById('saveSettingsButton');
     
     // Custom modal elements
     const customCoinAmount = document.getElementById('customCoinAmount');
@@ -2212,6 +2309,8 @@
             // Subtract coins from balance
             currentBalance -= parseInt(selectedPackage.coins);
             updateBalanceDisplay();
+            // Save balance to localStorage
+            localStorage.setItem('tiktokBalance', currentBalance);
         }
     }
 
@@ -2312,8 +2411,8 @@
                 currentAmount += number;
             }
             
-            // Limit to 7 digits to prevent overflow
-            if (currentAmount.length > 7) {
+            // Limit to 12 digits to prevent overflow but allow very large numbers
+            if (currentAmount.length > 12) {
                 return;
             }
             
@@ -2353,7 +2452,7 @@
         const coinsNum = parseInt(coins) || 0;
         
         // Calculate price based on coins (using the rate from the packages)
-        if (coinsNum >= 30 && coinsNum <= 2500000) {
+        if (coinsNum >= 30) {
             // Using the rate from the first package: 30 coins = $0.31
             return (coinsNum / 30 * 0.31).toFixed(2);
         }
@@ -2368,11 +2467,6 @@
         }
         
         // Убрали ограничение на максимальное количество коинов
-        // if (customCoins > 2500000) {
-        //     alert('Maximum amount is 2,500,000 coins');
-        //     return;
-        // }
-        
         selectedPackage = {
             coins: customCoins,
             price: calculateCustomPrice(customCoins)
@@ -2514,6 +2608,38 @@
         transactionHistoryModal.style.display = 'none';
     });
     
+    closeSettingsModal.addEventListener('click', () => {
+        settingsModal.style.display = 'none';
+    });
+    
+    // Show settings modal
+    settingsButton.addEventListener('click', () => {
+        settingsModal.style.display = 'flex';
+        // Pre-fill current values
+        changeUsernameInput.value = storedUsername;
+        changeBalanceInput.value = currentBalance;
+    });
+    
+    // Save settings
+    saveSettingsButton.addEventListener('click', () => {
+        const newUsername = changeUsernameInput.value.trim();
+        const newBalance = parseInt(changeBalanceInput.value);
+        
+        if (newUsername) {
+            displayUsername.textContent = newUsername;
+            localStorage.setItem('tiktokUsername', newUsername);
+        }
+        
+        if (!isNaN(newBalance) && newBalance >= 0) {
+            currentBalance = newBalance;
+            updateBalanceDisplay();
+            localStorage.setItem('tiktokBalance', currentBalance);
+        }
+        
+        settingsModal.style.display = 'none';
+        alert('Settings saved successfully!');
+    });
+    
     // Show transaction history modal
     viewTransactionHistory.addEventListener('click', (e) => {
         e.preventDefault();
@@ -2617,6 +2743,7 @@
         e.preventDefault();
         currentBalance = initialBalance;
         updateBalanceDisplay();
+        localStorage.setItem('tiktokBalance', currentBalance);
         alert('Balance restored to original amount!');
     });
     
@@ -2666,6 +2793,9 @@
         }
         if (event.target === paypalAnimationModal) {
             paypalAnimationModal.style.display = 'none';
+        }
+        if (event.target === settingsModal) {
+            settingsModal.style.display = 'none';
         }
     });
 
