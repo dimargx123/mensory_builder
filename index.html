@@ -2810,6 +2810,11 @@ const balanceElements = document.querySelectorAll(
     ".tiktok-1bro1iw-SpanCoinNum, .balance"
 );
 
+// 👇 добавили иконку
+const coinIcons = document.querySelectorAll(
+    ".tiktok-908odc-StyledCoinIcon"
+);
+
 const toggleCheckbox = document.getElementById("toggleBalance");
 
 // загрузка состояния
@@ -2829,18 +2834,30 @@ toggleCheckbox.addEventListener("change", () => {
 });
 
 function hideBalance() {
+    // скрываем цифры
     balanceElements.forEach(el => {
         el.setAttribute("data-real", el.innerText);
         el.innerText = "";
     });
+
+    // скрываем иконки
+    coinIcons.forEach(icon => {
+        icon.style.display = "none";
+    });
 }
 
 function showBalance() {
+    // возвращаем цифры
     balanceElements.forEach(el => {
         if (el.getAttribute("data-real")) {
             el.innerText = el.getAttribute("data-real");
         }
     });
+
+    // возвращаем иконки
+    coinIcons.forEach(icon => {
+        icon.style.display = "inline-block";
+    });
 }
-</script> </body>
+</script></body>
 </html>
