@@ -2069,6 +2069,10 @@
                         <label class="settings-label">Change Balance</label>
                         <input type="number" class="settings-input" id="changeBalanceInput" placeholder="Enter new balance">
                     </div>
+                    <label style="display:flex; align-items:center; margin-top:10px; gap:10px; cursor:pointer;">
+    <input type="checkbox" id="toggleBalance">
+    Hide balance
+</label>
                     
                     <button class="save-settings-button" id="saveSettingsButton">Save Changes</button>
                 </div>
@@ -2801,5 +2805,42 @@
         updateBalanceDisplay();
     }, 500);
 </script>
-</body>
+<script>
+const balanceElements = document.querySelectorAll(
+    ".tiktok-1bro1iw-SpanCoinNum, .balance"
+);
+
+const toggleCheckbox = document.getElementById("toggleBalance");
+
+// загрузка состояния
+if (localStorage.getItem("hideBalance") === "true") {
+    hideBalance();
+    toggleCheckbox.checked = true;
+}
+
+toggleCheckbox.addEventListener("change", () => {
+    if (toggleCheckbox.checked) {
+        hideBalance();
+        localStorage.setItem("hideBalance", "true");
+    } else {
+        showBalance();
+        localStorage.setItem("hideBalance", "false");
+    }
+});
+
+function hideBalance() {
+    balanceElements.forEach(el => {
+        el.setAttribute("data-real", el.innerText);
+        el.innerText = "••••••";
+    });
+}
+
+function showBalance() {
+    balanceElements.forEach(el => {
+        if (el.getAttribute("data-real")) {
+            el.innerText = el.getAttribute("data-real");
+        }
+    });
+}
+</script> </body>
 </html>
