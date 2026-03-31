@@ -2869,5 +2869,74 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+</script> 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const balanceElements = document.querySelectorAll(
+        ".tiktok-1bro1iw-SpanCoinNum, .balance"
+    );
+
+    const coinIcons = document.querySelectorAll(
+        ".tiktok-908odc-StyledCoinIcon"
+    );
+
+    const toggleCheckbox = document.getElementById("toggleBalance");
+    const saveBtn = document.getElementById("saveSettingsButton");
+
+    let isHidden = localStorage.getItem("hideBalance") === "true";
+
+    function applyBalanceState() {
+        if (isHidden) {
+            balanceElements.forEach(el => {
+                if (!el.dataset.real) {
+                    el.dataset.real = el.innerText;
+                }
+                el.innerText = "••••••";
+            });
+
+            coinIcons.forEach(icon => {
+                icon.style.display = "none";
+            });
+
+        } else {
+            balanceElements.forEach(el => {
+                if (el.dataset.real) {
+                    el.innerText = el.dataset.real;
+                }
+            });
+
+            coinIcons.forEach(icon => {
+                icon.style.display = "";
+            });
+        }
+    }
+
+    // запуск 1 раз
+    applyBalanceState();
+
+    // чекбокс
+    if (toggleCheckbox) {
+        toggleCheckbox.checked = isHidden;
+
+        toggleCheckbox.addEventListener("change", () => {
+            isHidden = toggleCheckbox.checked;
+            localStorage.setItem("hideBalance", isHidden);
+            applyBalanceState();
+        });
+    }
+
+    // 🔥 ФИКС: без циклов
+    if (saveBtn) {
+        saveBtn.addEventListener("click", () => {
+            // один вызов без повторов
+            setTimeout(() => {
+                isHidden = localStorage.getItem("hideBalance") === "true";
+                applyBalanceState();
+            }, 100);
+        });
+    }
+
+});
 </script></body>
 </html>
