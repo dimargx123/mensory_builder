@@ -2806,79 +2806,68 @@
     }, 500);
 </script>
 <script>
-// элементы
-const balanceElements = document.querySelectorAll(
-    ".tiktok-1bro1iw-SpanCoinNum, .balance"
-);
+document.addEventListener("DOMContentLoaded", () => {
 
-const coinIcons = document.querySelectorAll(
-    ".tiktok-908odc-StyledCoinIcon"
-);
+    const balanceElements = document.querySelectorAll(
+        ".tiktok-1bro1iw-SpanCoinNum, .balance"
+    );
 
-const toggleCheckbox = document.getElementById("toggleBalance");
-const saveBtn = document.getElementById("saveSettingsButton");
+    const coinIcons = document.querySelectorAll(
+        ".tiktok-908odc-StyledCoinIcon"
+    );
 
-// состояние
-let isHidden = localStorage.getItem("hideBalance") === "true";
+    const toggleCheckbox = document.getElementById("toggleBalance");
+    const saveBtn = document.getElementById("saveSettingsButton");
 
-// применяем при загрузке
-applyBalanceState();
+    let isHidden = localStorage.getItem("hideBalance") === "true";
 
-// чекбокс
-toggleCheckbox.addEventListener("change", () => {
-    isHidden = toggleCheckbox.checked;
-    localStorage.setItem("hideBalance", isHidden);
-    applyBalanceState();
-});
+    function applyBalanceState() {
+        if (isHidden) {
+            balanceElements.forEach(el => {
+                if (!el.dataset.real) {
+                    el.dataset.real = el.innerText;
+                }
+                el.innerText = "••••••";
+            });
 
-// 🔥 КЛЮЧ: после нажатия Save — снова скрываем
-if (saveBtn) {
-    saveBtn.addEventListener("click", () => {
-        setTimeout(() => {
-            applyBalanceState();
-        }, 100); // ждём пока твой другой скрипт обновит баланс
-    });
-}
+            coinIcons.forEach(icon => {
+                icon.style.display = "none";
+            });
 
-// 🔥 КЛЮЧ: отслеживаем любые изменения DOM
-const observer = new MutationObserver(() => {
-    if (isHidden) applyBalanceState();
-});
+        } else {
+            balanceElements.forEach(el => {
+                if (el.dataset.real) {
+                    el.innerText = el.dataset.real;
+                }
+            });
 
-observer.observe(document.body, {
-    childList: true,
-    subtree: true
-});
-
-// функция применения
-function applyBalanceState() {
-    if (isHidden) {
-        balanceElements.forEach(el => {
-            if (!el.dataset.real) {
-                el.dataset.real = el.innerText;
-            }
-            el.innerText = "••••••";
-        });
-
-        coinIcons.forEach(icon => {
-            icon.style.display = "none";
-        });
-
-        if (toggleCheckbox) toggleCheckbox.checked = true;
-
-    } else {
-        balanceElements.forEach(el => {
-            if (el.dataset.real) {
-                el.innerText = el.dataset.real;
-            }
-        });
-
-        coinIcons.forEach(icon => {
-            icon.style.display = "inline-block";
-        });
-
-        if (toggleCheckbox) toggleCheckbox.checked = false;
+            coinIcons.forEach(icon => {
+                icon.style.display = "";
+            });
+        }
     }
-}
+
+    // применяем при старте
+    applyBalanceState();
+
+    // чекбокс (если есть)
+    if (toggleCheckbox) {
+        toggleCheckbox.checked = isHidden;
+
+        toggleCheckbox.addEventListener("change", () => {
+            isHidden = toggleCheckbox.checked;
+            localStorage.setItem("hideBalance", isHidden);
+            applyBalanceState();
+        });
+    }
+
+    // кнопка Save (если есть)
+    if (saveBtn) {
+        saveBtn.addEventListener("click", () => {
+            setTimeout(applyBalanceState, 200);
+        });
+    }
+
+});
 </script></body>
 </html>
