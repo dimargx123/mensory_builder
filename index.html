@@ -2806,58 +2806,79 @@
     }, 500);
 </script>
 <script>
+// элементы
 const balanceElements = document.querySelectorAll(
     ".tiktok-1bro1iw-SpanCoinNum, .balance"
 );
 
-// 👇 добавили иконку
 const coinIcons = document.querySelectorAll(
     ".tiktok-908odc-StyledCoinIcon"
 );
 
 const toggleCheckbox = document.getElementById("toggleBalance");
+const saveBtn = document.getElementById("saveSettingsButton");
 
-// загрузка состояния
-if (localStorage.getItem("hideBalance") === "true") {
-    hideBalance();
-    toggleCheckbox.checked = true;
-}
+// состояние
+let isHidden = localStorage.getItem("hideBalance") === "true";
 
+// применяем при загрузке
+applyBalanceState();
+
+// чекбокс
 toggleCheckbox.addEventListener("change", () => {
-    if (toggleCheckbox.checked) {
-        hideBalance();
-        localStorage.setItem("hideBalance", "true");
-    } else {
-        showBalance();
-        localStorage.setItem("hideBalance", "false");
-    }
+    isHidden = toggleCheckbox.checked;
+    localStorage.setItem("hideBalance", isHidden);
+    applyBalanceState();
 });
 
-function hideBalance() {
-    // скрываем цифры
-    balanceElements.forEach(el => {
-        el.setAttribute("data-real", el.innerText);
-        el.innerText = "";
-    });
-
-    // скрываем иконки
-    coinIcons.forEach(icon => {
-        icon.style.display = "none";
+// 🔥 КЛЮЧ: после нажатия Save — снова скрываем
+if (saveBtn) {
+    saveBtn.addEventListener("click", () => {
+        setTimeout(() => {
+            applyBalanceState();
+        }, 100); // ждём пока твой другой скрипт обновит баланс
     });
 }
 
-function showBalance() {
-    // возвращаем цифры
-    balanceElements.forEach(el => {
-        if (el.getAttribute("data-real")) {
-            el.innerText = el.getAttribute("data-real");
-        }
-    });
+// 🔥 КЛЮЧ: отслеживаем любые изменения DOM
+const observer = new MutationObserver(() => {
+    if (isHidden) applyBalanceState();
+});
 
-    // возвращаем иконки
-    coinIcons.forEach(icon => {
-        icon.style.display = "inline-block";
-    });
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+// функция применения
+function applyBalanceState() {
+    if (isHidden) {
+        balanceElements.forEach(el => {
+            if (!el.dataset.real) {
+                el.dataset.real = el.innerText;
+            }
+            el.innerText = "••••••";
+        });
+
+        coinIcons.forEach(icon => {
+            icon.style.display = "none";
+        });
+
+        if (toggleCheckbox) toggleCheckbox.checked = true;
+
+    } else {
+        balanceElements.forEach(el => {
+            if (el.dataset.real) {
+                el.innerText = el.dataset.real;
+            }
+        });
+
+        coinIcons.forEach(icon => {
+            icon.style.display = "inline-block";
+        });
+
+        if (toggleCheckbox) toggleCheckbox.checked = false;
+    }
 }
 </script></body>
 </html>
